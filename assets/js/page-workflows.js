@@ -60,7 +60,7 @@ async function showAgents() {
     }
 
     try {
-        const response = await fetch('assets/data/agents.json');
+        const response = await fetch('../data/agents.json');
         const agents = await response.json();
 
         list.innerHTML = agents.map((agent) => {
