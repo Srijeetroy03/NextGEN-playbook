@@ -1,0 +1,455 @@
+<div class="relative flex min-h-screen flex-col">
+    <main class="flex-1 max-w-[1440px] mx-auto w-full px-10 py-8">
+        <section id="workflow-empty-state" class="rounded-2xl border border-dashed border-[#dbdfe6] dark:border-[#2d333d] bg-white/60 dark:bg-[#111318]/60 p-8 mb-10">
+            <div class="max-w-xl">
+                <h2 class="text-2xl font-bold text-[#111318] dark:text-white">No active workflow yet</h2>
+                <p class="text-[#616f89] mt-2">Start a new planning run to kick off the agent pipeline and live stream.</p>
+                <a href="#/new-run"
+                    class="inline-flex items-center gap-2 mt-6 rounded-lg h-11 px-5 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                    <span class="material-symbols-outlined text-sm">play_arrow</span>
+                    Start New Planning Run
+                </a>
+            </div>
+        </section>
+
+        <div id="workflow-legacy" class="hidden">
+            <!-- Progress Overview Section -->
+            <div class="mb-8">
+            <div
+                class="flex flex-col gap-3 p-6 bg-white dark:bg-[#111318] rounded-xl border border-[#e5e7eb] dark:border-[#2d333d] shadow-sm">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-[#111318] dark:text-white">Active Workflow: Q4 Demand Sync
+                        </h3>
+                        <p class="text-[#616f89] text-sm font-normal">Initiated by System Scheduler • Oct 24, 2023,
+                            10:30 AM</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[#111318] dark:text-white text-lg font-bold">70%</p>
+                        <p class="text-[#616f89] text-xs font-medium uppercase tracking-wider">Overall Progress</p>
+                    </div>
+                </div>
+                <div class="rounded-full bg-[#dbdfe6] dark:bg-[#2d333d] h-2.5 overflow-hidden">
+                    <div class="h-full rounded-full bg-primary" style="width: 70%;"></div>
+                </div>
+                <div class="flex items-center gap-2 text-primary font-medium text-sm">
+                    <span class="material-symbols-outlined text-sm animate-pulse" data-icon="sync">sync</span>
+                    <span>Current Agent: Inventory Planner</span>
+                </div>
+            </div>
+        </div>
+        <!-- Agent Workflow Visualization Title -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold tracking-tight dark:text-white">Agent Collaboration Pipeline</h2>
+            <p class="text-[#616f89]">Visualize real-time data flow and agent-specific task execution.</p>
+        </div>
+        <div class="flex items-center justify-between mb-3">
+            <p class="text-xs text-[#616f89]">Scroll to view the full pipeline</p>
+            <div class="flex items-center gap-2">
+                <button id="pipeline-prev"
+                    class="h-8 w-8 rounded-full border border-[#dbdfe6] dark:border-[#2d333d] flex items-center justify-center text-[#616f89] hover:text-primary hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined text-sm">chevron_left</span>
+                </button>
+                <button id="pipeline-next"
+                    class="h-8 w-8 rounded-full border border-[#dbdfe6] dark:border-[#2d333d] flex items-center justify-center text-[#616f89] hover:text-primary hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+            </div>
+        </div>
+        <!-- Agents List (loaded on start) -->
+        <section id="agents-section" class="hidden mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-[#111318] dark:text-white">Active Agents</h3>
+                <span class="text-xs text-[#616f89]">Auto-populated from agent registry</span>
+            </div>
+            <div id="agents-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </section>
+        <!-- Horizontal Pipeline Carousel -->
+        <div class="relative mb-12 py-4">
+            <div id="pipeline-carousel" class="flex items-start gap-6 pipeline-scroll pb-6 px-2 pr-24">
+                <!-- Agent Card: Planning Orchestrator -->
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center group cursor-pointer w-56">
+                        <div
+                            class="w-full bg-white dark:bg-[#111318] p-5 rounded-xl border-2 border-[#135bec] shadow-lg transition-transform hover:-translate-y-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-primary/10 rounded-lg">
+                                    <span class="material-symbols-outlined text-primary"
+                                        data-icon="architecture">architecture</span>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]"
+                                        data-icon="check_circle">check_circle</span> DONE
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-sm dark:text-white">Planning Orchestrator</h4>
+                            <p class="text-xs text-[#616f89] mt-2 line-clamp-2">Workflow Strategy Alignment
+                                completed.</p>
+                        </div>
+                    </div>
+                    <div class="w-12 h-[2px] bg-primary relative">
+                        <div class="absolute inset-0 flow-line opacity-50"></div>
+                    </div>
+                </div>
+                <!-- Agent Card: Entity Extractor -->
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center group cursor-pointer w-56">
+                        <div
+                            class="w-full bg-white dark:bg-[#111318] p-5 rounded-xl border-2 border-primary shadow-lg transition-transform hover:-translate-y-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-primary/10 rounded-lg">
+                                    <span class="material-symbols-outlined text-primary"
+                                        data-icon="database">database</span>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]"
+                                        data-icon="check_circle">check_circle</span> DONE
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-sm dark:text-white">Entity Extractor</h4>
+                            <p class="text-xs text-[#616f89] mt-2 line-clamp-2">SKU Detection &amp; Regions
+                                identified.</p>
+                        </div>
+                    </div>
+                    <div class="w-12 h-[2px] bg-primary relative">
+                        <div class="absolute inset-0 flow-line opacity-50"></div>
+                    </div>
+                </div>
+                <!-- Agent Card: Demand Forecaster -->
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center group cursor-pointer w-56">
+                        <div
+                            class="w-full bg-white dark:bg-[#111318] p-5 rounded-xl border-2 border-primary shadow-lg transition-transform hover:-translate-y-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-primary/10 rounded-lg">
+                                    <span class="material-symbols-outlined text-primary"
+                                        data-icon="trending_up">trending_up</span>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]"
+                                        data-icon="check_circle">check_circle</span> DONE
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-sm dark:text-white">Demand Forecaster</h4>
+                            <p class="text-xs text-[#616f89] mt-2 line-clamp-2">Baseline trends &amp; Seasonal
+                                curves mapped.</p>
+                        </div>
+                    </div>
+                    <div class="w-12 h-[2px] bg-primary relative">
+                        <div class="absolute inset-0 flow-line opacity-50"></div>
+                    </div>
+                </div>
+                <!-- Agent Card: Events & Promo -->
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center group cursor-pointer w-56">
+                        <div
+                            class="w-full bg-white dark:bg-[#111318] p-5 rounded-xl border-2 border-primary shadow-lg transition-transform hover:-translate-y-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-primary/10 rounded-lg">
+                                    <span class="material-symbols-outlined text-primary"
+                                        data-icon="campaign">campaign</span>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px]"
+                                        data-icon="check_circle">check_circle</span> DONE
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-sm dark:text-white">Events &amp; Promo</h4>
+                            <p class="text-xs text-[#616f89] mt-2 line-clamp-2">Marketing Lift &amp; Holiday impacts
+                                factored.</p>
+                        </div>
+                    </div>
+                    <div class="w-12 h-[2px] bg-primary relative">
+                        <div class="absolute inset-0 flow-line"></div>
+                    </div>
+                </div>
+                <!-- Agent Card: Inventory Planner (ACTIVE) -->
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center group cursor-pointer w-64">
+                        <div
+                            class="w-full bg-primary/5 dark:bg-primary/20 p-6 rounded-xl border-2 border-primary shadow-[0_0_15px_rgba(19,91,236,0.3)] transition-transform scale-105 z-10">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-primary rounded-lg text-white">
+                                    <span class="material-symbols-outlined"
+                                        data-icon="inventory_2">inventory_2</span>
+                                </div>
+                                <span
+                                    class="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                                    <span class="material-symbols-outlined text-[12px]" data-icon="sync">sync</span>
+                                    RUNNING
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-base dark:text-white">Inventory Planner</h4>
+                            <p class="text-xs text-[#111318] dark:text-gray-300 mt-2 font-medium">Calculating Safety
+                                Stock levels and Reorder points...</p>
+                            <div class="mt-4 flex gap-1">
+                                <span class="h-1 w-full bg-primary rounded-full"></span>
+                                <span class="h-1 w-full bg-primary rounded-full"></span>
+                                <span class="h-1 w-full bg-primary/30 rounded-full"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="w-12 h-[2px] bg-[#dbdfe6] dark:bg-[#2d333d] border-t-2 border-dashed border-[#dbdfe6]">
+                    </div>
+                </div>
+                <!-- Agent Card: Analytics Specialist -->
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center group cursor-pointer w-56">
+                        <div
+                            class="w-full bg-white dark:bg-[#111318] p-5 rounded-xl border border-[#e5e7eb] dark:border-[#2d333d] transition-transform hover:-translate-y-1 opacity-60">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                                    <span class="material-symbols-outlined text-gray-500"
+                                        data-icon="query_stats">query_stats</span>
+                                </div>
+                                <span
+                                    class="bg-gray-100 text-gray-500 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                    PENDING
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-sm dark:text-white">Analytics Specialist</h4>
+                            <p class="text-xs text-[#616f89] mt-2 line-clamp-2">MAPE Calculation &amp; Error
+                                analysis pending.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="w-12 h-[2px] bg-[#dbdfe6] dark:bg-[#2d333d] border-t-2 border-dashed border-[#dbdfe6]">
+                    </div>
+                </div>
+                <!-- Agent Card: Communication Lead -->
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center group cursor-pointer w-56">
+                        <div
+                            class="w-full bg-white dark:bg-[#111318] p-5 rounded-xl border border-[#e5e7eb] dark:border-[#2d333d] transition-transform hover:-translate-y-1 opacity-60">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                                    <span class="material-symbols-outlined text-gray-500"
+                                        data-icon="forum">forum</span>
+                                </div>
+                                <span
+                                    class="bg-gray-100 text-gray-500 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                    PENDING
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-sm dark:text-white">Communication Lead</h4>
+                            <p class="text-xs text-[#616f89] mt-2 line-clamp-2">Stakeholder Reporting and drafts
+                                preparation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Details Panel (Agent Specific) -->
+            <div class="grid grid-cols-3 gap-8">
+            <div class="col-span-2 space-y-6">
+                <div
+                    class="bg-white dark:bg-[#111318] rounded-xl border border-[#e5e7eb] dark:border-[#2d333d] overflow-hidden">
+                    <div
+                        class="flex items-center justify-between px-6 py-4 border-b border-[#e5e7eb] dark:border-[#2d333d]">
+                        <h3 class="text-lg font-bold dark:text-white">Agent Details: Inventory Planner</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                            <span class="text-xs font-bold text-primary uppercase">Active Processing</span>
+                        </div>
+                    </div>
+                    <div class="pb-3 px-6 pt-2">
+                        <div class="flex border-b border-[#dbdfe6] dark:border-[#2d333d] gap-8">
+                            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4"
+                                href="#">
+                                <p class="text-sm font-bold leading-normal">Data Outputs</p>
+                            </a>
+                            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#616f89] pb-[13px] pt-4"
+                                href="#">
+                                <p class="text-sm font-bold leading-normal">Task Summary</p>
+                            </a>
+                            <a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#616f89] pb-[13px] pt-4"
+                                href="#">
+                                <p class="text-sm font-bold leading-normal">Execution Logs</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div
+                                class="p-4 bg-background-light dark:bg-[#1a212e] rounded-lg border border-[#e5e7eb] dark:border-[#2d333d]">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-xs font-bold text-[#616f89] uppercase">Product Reorder Points</p>
+                                    <span class="material-symbols-outlined text-sm text-primary"
+                                        data-icon="inventory">inventory</span>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="dark:text-gray-400">SKU-90210 (Global)</span>
+                                        <span class="font-bold dark:text-white">1,240 Units</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="dark:text-gray-400">SKU-44023 (EMEA)</span>
+                                        <span class="font-bold dark:text-white">850 Units</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="dark:text-gray-400">SKU-11204 (APAC)</span>
+                                        <span class="font-bold dark:text-white">3,100 Units</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="p-4 bg-background-light dark:bg-[#1a212e] rounded-lg border border-[#e5e7eb] dark:border-[#2d333d]">
+                                <div class="flex items-center justify-between mb-2">
+                                    <p class="text-xs font-bold text-[#616f89] uppercase">Safety Stock Calc</p>
+                                    <span class="material-symbols-outlined text-sm text-primary"
+                                        data-icon="shield">shield</span>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="dark:text-gray-400">Confidence Level</span>
+                                        <span class="font-bold dark:text-white">95%</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="dark:text-gray-400">Lead Time Var</span>
+                                        <span class="font-bold dark:text-white">+/- 2 Days</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="dark:text-gray-400">Stockout Risk</span>
+                                        <span class="font-bold text-green-600">Low (2.1%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div
+                    class="bg-white dark:bg-[#111318] p-6 rounded-xl border border-[#e5e7eb] dark:border-[#2d333d] shadow-sm">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-[#616f89] mb-4">Workflow Health</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm dark:text-white">Latency</span>
+                            <span class="text-sm font-bold text-green-600">42ms</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm dark:text-white">Data Integrity</span>
+                            <span class="text-sm font-bold text-green-600">100% Verified</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm dark:text-white">CPU Load</span>
+                            <span class="text-sm font-bold text-orange-500">64%</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white dark:bg-[#111318] p-6 rounded-xl border border-[#e5e7eb] dark:border-[#2d333d] shadow-sm">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-[#616f89] mb-4">Agent Dependencies
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="size-8 rounded bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined text-sm" data-icon="link">link</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold dark:text-white">Demand Forecaster</p>
+                                <p class="text-[10px] text-[#616f89]">Input Provider • Success</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="size-8 rounded bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined text-sm" data-icon="input">input</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold dark:text-white">Warehouse API</p>
+                                <p class="text-[10px] text-[#616f89]">External Data Source • Connected</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </main>
+    <footer class="mt-auto py-6 px-10 border-t border-[#e5e7eb] dark:border-[#2d333d] bg-white dark:bg-[#111318]">
+        <div class="flex items-center justify-between text-[#616f89] text-xs">
+            <p>© 2023 Enterprise AI Demand Planning Platform. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a class="hover:text-primary transition-colors" href="#">Documentation</a>
+                <a class="hover:text-primary transition-colors" href="#">API Reference</a>
+                <a class="hover:text-primary transition-colors" href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Toggle Button for Live Stream Drawer -->
+<button onclick="toggleDrawer()" id="drawerToggle"
+    class="drawer-toggle-btn bg-primary text-white px-2 py-4 rounded-l-lg shadow-xl hover:bg-blue-700 transition-all flex flex-col items-center gap-2 group">
+    <div class="toggle-text flex flex-col items-center gap-1">
+        <span class="pulse-dot size-1.5 rounded-full bg-white"></span>
+        <span class="text-[10px] font-bold tracking-wider">LIVE</span>
+    </div>
+    <span class="material-symbols-outlined text-lg" id="toggleIcon" style="transform: rotate(-90deg);">chevron_left</span>
+</button>
+
+<!-- Collapsible Live Stream Drawer -->
+<div id="liveStreamDrawer" class="live-stream-drawer">
+    <div class="h-full flex flex-col">
+        <!-- Drawer Header -->
+        <div
+            class="flex items-center justify-between p-6 border-b border-[#e5e7eb] dark:border-[#2d333d] bg-primary/5 dark:bg-primary/10">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+                <h3 class="text-lg font-bold dark:text-white">Live Stream Output</h3>
+            </div>
+            <button onclick="toggleDrawer()"
+                class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                <span class="material-symbols-outlined text-[#616f89]" data-icon="close">close</span>
+            </button>
+        </div>
+
+        <!-- Drawer Content -->
+        <div class="flex-1 p-6 overflow-y-auto">
+            <div class="mb-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="text-xs font-bold text-primary uppercase">Active Processing</span>
+                </div>
+                <span class="text-xs text-[#616f89]">Agent: Inventory Planner</span>
+            </div>
+
+            <!-- Live Stream Console -->
+            <div
+                class="bg-black text-green-400 font-mono text-xs p-4 rounded-lg overflow-hidden border border-gray-800 min-h-[500px] max-h-[calc(100vh-250px)] overflow-y-auto">
+                <p class="opacity-70 mb-1">[10:42:01] Loading demand_forecast_matrix.json...</p>
+                <p class="opacity-70 mb-1">[10:42:02] Cross-referencing current warehouse inventory levels.</p>
+                <p class="text-white underline mb-1">[10:42:05] Applying safety stock coefficient: 1.65 (Standard Dev)</p>
+                <p class="animate-pulse mb-1">[10:42:08] Processing SKU-55902... Calculating...</p>
+                <p class="opacity-70 mb-1">[10:42:09] Demand variance: +12.3% vs baseline</p>
+                <p class="opacity-70 mb-1">[10:42:10] Lead time analysis: 14 days average</p>
+                <p class="text-yellow-400 mb-1">[10:42:12] WARNING: High demand detected for APAC region</p>
+                <p class="opacity-70 mb-1">[10:42:13] Calculating reorder point for SKU-55902...</p>
+                <p class="text-white underline mb-1">[10:42:15] Reorder Point: 1,850 units</p>
+                <p class="opacity-70 mb-1">[10:42:16] Safety stock buffer: 340 units</p>
+                <p class="animate-pulse">[10:42:18] Moving to next SKU...</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-4 flex gap-2">
+                <button
+                    class="flex-1 px-3 py-2 bg-[#f0f2f4] dark:bg-[#2d333d] text-[#111318] dark:text-white text-xs font-bold rounded-lg hover:bg-[#e2e4e7] transition-colors flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                    Export Logs
+                </button>
+                <button
+                    class="flex-1 px-3 py-2 bg-[#f0f2f4] dark:bg-[#2d333d] text-[#111318] dark:text-white text-xs font-bold rounded-lg hover:bg-[#e2e4e7] transition-colors flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+                    Clear
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

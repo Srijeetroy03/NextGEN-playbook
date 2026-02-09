@@ -1,0 +1,58 @@
+[
+  {
+    "id": "planning-orchestrator",
+    "name": "Planning Orchestrator",
+    "role": "Aligns strategy, constraints, and run plan",
+    "status": "done",
+    "accent": "#135bec",
+    "icon": "architecture"
+  },
+  {
+    "id": "entity-extractor",
+    "name": "Entity Extraction Agent",
+    "role": "Extracts SKU, store, weeks, and regions",
+    "status": "done",
+    "accent": "#4f46e5",
+    "icon": "database"
+  },
+  {
+    "id": "demand-forecasting",
+    "name": "Demand Forecasting Agent",
+    "role": "Builds baseline forecast with trends",
+    "status": "done",
+    "accent": "#2563eb",
+    "icon": "trending_up"
+  },
+  {
+    "id": "events-promo",
+    "name": "Events & Promotion Agent",
+    "role": "Applies event, promo, and lift factors",
+    "status": "done",
+    "accent": "#7c3aed",
+    "icon": "campaign"
+  },
+  {
+    "id": "inventory-planning",
+    "name": "Inventory Agent",
+    "role": "Optimizes safety stock and reorder points",
+    "status": "running",
+    "accent": "#135bec",
+    "icon": "inventory_2"
+  },
+  {
+    "id": "analytics",
+    "name": "Analytics Agent",
+    "role": "Computes MAPE and forecast accuracy",
+    "status": "pending",
+    "accent": "#64748b",
+    "icon": "query_stats"
+  },
+  {
+    "id": "communications",
+    "name": "Communications Agent",
+    "role": "Drafts stakeholder updates and alerts",
+    "status": "pending",
+    "accent": "#64748b",
+    "icon": "forum"
+  }
+]

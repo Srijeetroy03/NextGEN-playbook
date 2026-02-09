@@ -1,0 +1,7 @@
+.chart-gradient {
+    background: linear-gradient(180deg, rgba(19, 91, 236, 0.1) 0%, rgba(19, 91, 236, 0) 100%);
+}
+
+.confidence-band {
+    background: rgba(19, 91, 236, 0.08);
+}

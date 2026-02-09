@@ -1,0 +1,109 @@
+/* Custom scrollbar for horizontal carousel */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.pipeline-scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-behavior: smooth;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.pipeline-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.pipeline-scroll::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 9999px;
+}
+
+.pipeline-scroll::-webkit-scrollbar-thumb {
+    background: #135bec;
+    border-radius: 9999px;
+}
+
+/* Flow line animation simulation */
+.flow-line {
+    background: linear-gradient(90deg, transparent 0%, #135bec 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: flow 3s linear infinite;
+}
+
+@keyframes flow {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Collapsible Drawer Styles */
+.live-stream-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 420px;
+    background: white;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    transform: translateX(420px);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+}
+
+.dark .live-stream-drawer {
+    background: #111318;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.live-stream-drawer.open {
+    transform: translateX(0);
+}
+
+.drawer-toggle-btn {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 99;
+    transition: all 0.3s ease-in-out;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.drawer-toggle-btn.drawer-open {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.drawer-toggle-btn:hover {
+    transform: translateY(-50%) translateX(-2px);
+}
+
+.pulse-dot {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.content-shifted {
+    margin-right: 420px;
+}
