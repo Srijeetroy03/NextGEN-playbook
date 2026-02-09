@@ -1,9 +1,9 @@
 const ROUTES = {
     dashboard: {
         title: "Demand Planning Main Dashboard",
-        html: "../pages/dashboard.html",
-        css: "../css/page-dashboard.css",
-        js: "../js/page-dashboard.js",
+        html: "pages/dashboard.html",
+        css: "assets/css/page-dashboard.css",
+        js: "assets/js/page-dashboard.js",
         actions: `
             <button
                 class="flex items-center justify-center rounded-lg h-10 px-4 bg-[#f0f2f4] dark:bg-[#2d333d] text-[#111318] dark:text-white text-sm font-bold hover:bg-[#e2e4e7] transition-colors">
@@ -14,9 +14,9 @@ const ROUTES = {
     },
     workflows: {
         title: "Agent Workflow Visualization - Demand Planning AI",
-        html: "../pages/workflows.html",
-        css: "../css/page-workflows.css",
-        js: "../js/page-workflows.js",
+        html: "pages/workflows.html",
+        css: "assets/css/page-workflows.css",
+        js: "assets/js/page-workflows.js",
         actions: `
             <button
                 class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-blue-700 transition-colors">
@@ -32,9 +32,9 @@ const ROUTES = {
     },
     "new-run": {
         title: "Initiate Planning Run - Demand Planning AI",
-        html: "../pages/new_run.html",
-        css: "../css/page-new-run.css",
-        js: "../js/page-new-run.js",
+        html: "pages/new_run.html",
+        css: "assets/css/page-new-run.css",
+        js: "assets/js/page-new-run.js",
         actions: `
             <button
                 class="flex items-center justify-center rounded-lg size-10 bg-[#f0f2f4] dark:bg-[#2d333d] text-[#111318] dark:text-white hover:bg-[#e2e4e7] transition-colors">
@@ -44,9 +44,9 @@ const ROUTES = {
     },
     reports: {
         title: "Planning Run Detailed Insights | SupplyFlow AI",
-        html: "../pages/reports.html",
-        css: "../css/page-reports.css",
-        js: "../js/page-reports.js",
+        html: "pages/reports.html",
+        css: "assets/css/page-reports.css",
+        js: "assets/js/page-reports.js",
         actions: `
             <button
                 class="flex items-center justify-center rounded-lg h-10 px-4 bg-[#f0f2f4] dark:bg-[#2d333d] text-[#111318] dark:text-white text-sm font-bold hover:bg-[#e2e4e7] transition-colors">
